@@ -16,7 +16,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className="h-screen w-screen bg-amber-100">
+      <body className="bg-background text-foreground flex min-h-screen flex-col font-sans antialiased">
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
@@ -24,7 +24,9 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <Header />
-          {children}
+          <main className="container mx-auto flex flex-1 flex-col">
+            {children}
+          </main>
           <Toaster richColors closeButton />
         </ThemeProvider>
       </body>
