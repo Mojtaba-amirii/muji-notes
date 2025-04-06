@@ -1,12 +1,14 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Button } from "./ui/button";
+import ModeToggle from "./theme-toggle";
+import LogoutButton from "./logout-btn";
 
 function Header() {
-  const user = null; // Replace with actual user authentication logic
+  const user = 1; // Replace with actual user authentication logic
 
   return (
-    <header className="bg-popover text-foreground dark:bg-popover/80 dark:text-foreground/80 relative flex h-24 w-full items-center justify-between px-2 shadow-sm shadow-sky-600 drop-shadow-md transition-colors duration-300 sm:px-4">
+    <header className="bg-popover text-foreground dark:bg-popover/80 dark:text-foreground/80 relative flex h-24 w-full items-center justify-between px-2 shadow-md shadow-sky-600 drop-shadow-xl transition-colors duration-300 sm:px-4">
       <div className="flex w-fit items-center justify-center gap-2">
         <Link href="/" className="h-16 w-16 overflow-hidden rounded-full">
           <Image
@@ -26,9 +28,9 @@ function Header() {
         </Link>
       </div>
 
-      <nav className="flex w-fit justify-around gap-4">
+      <nav className="flex w-fit items-center justify-around gap-4">
         {user ? (
-          "logout"
+          <LogoutButton />
         ) : (
           <>
             <Button asChild>
@@ -41,6 +43,7 @@ function Header() {
             </Button>
           </>
         )}
+        <ModeToggle />
       </nav>
     </header>
   );
