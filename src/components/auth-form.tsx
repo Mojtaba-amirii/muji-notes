@@ -1,6 +1,7 @@
 "use client";
 
-import toast from "sonner";
+import Link from "next/link";
+import { toast } from "sonner";
 import { useTransition } from "react";
 import { Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -9,7 +10,7 @@ import { Label } from "./ui/label";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { CardContent, CardFooter } from "./ui/card";
-import Link from "next/link";
+import { loginAction, signUpAction } from "@/actions/users";
 
 interface AuthFormProps {
   type: "login" | "signup";
@@ -21,11 +22,34 @@ function AuthForm({ type }: AuthFormProps) {
   const [isPending, startTransition] = useTransition();
 
   const handleSubmit = async (formData: FormData) => {
-    console.log(
-      "Form submitted",
-      formData.get("email"),
-      formData.get("password"),
-    );
+    startTransition(async () => {
+      const email = formData.get("email") as string;
+      const password = formData.get("password") as string;
+
+      let errorMessage;
+      let title;
+      let description;
+      if (isLoginForm) {
+        errorMessage = (await loginAction(email, password)).errorMessage;
+        title = "Logged in successfully!";
+        description = "You are now logged in.";
+      } else {
+        errorMessage = (await signUpAction(email, password)).errorMessage;
+        title = "Signed up successfully!";
+        description = "You are now signed up.";
+      }
+
+      if (!errorMessage) {
+        toast.success(title, {
+          description,
+        });
+        router.replace("/");
+      } else {
+        toast.error("Error", {
+          description: errorMessage,
+        });
+      }
+    });
   };
 
   return (
@@ -60,7 +84,7 @@ function AuthForm({ type }: AuthFormProps) {
       </CardContent>
 
       <CardFooter className="flex flex-col items-center space-y-4">
-        <Button>
+        <Button className="cursor-pointer">
           {isPending ? (
             <Loader2 className="animate-spin" />
           ) : isLoginForm ? (
@@ -69,7 +93,7 @@ function AuthForm({ type }: AuthFormProps) {
             "Sign Up"
           )}
         </Button>
-        <p className="cursor-pointer text-xs">
+        <p className="text-xs">
           {isLoginForm ? "Don't have an account?" : "Already have an account?"}{" "}
           <Link
             href={isLoginForm ? "/sign-up" : "login"}

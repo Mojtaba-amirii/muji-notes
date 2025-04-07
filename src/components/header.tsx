@@ -1,11 +1,13 @@
 import Link from "next/link";
 import Image from "next/image";
+
 import { Button } from "./ui/button";
 import ModeToggle from "./theme-toggle";
-import LogoutButton from "./logout-btn";
+import { getUser } from "@/auth/server";
+import LogOutButton from "./logout-btn";
 
-function Header() {
-  const user = 1; // Replace with actual user authentication logic
+async function Header() {
+  const user = await getUser();
 
   return (
     <header className="bg-popover text-foreground dark:bg-popover/80 dark:text-foreground/80 relative flex h-24 w-full items-center justify-between px-2 shadow-md shadow-sky-600 drop-shadow-xl transition-colors duration-300 sm:px-4">
@@ -30,7 +32,7 @@ function Header() {
 
       <nav className="flex w-fit items-center justify-around gap-4">
         {user ? (
-          <LogoutButton />
+          <LogOutButton />
         ) : (
           <>
             <Button asChild>

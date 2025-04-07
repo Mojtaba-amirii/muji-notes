@@ -6,25 +6,28 @@ import { Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 import { Button } from "./ui/button";
+import { logOutAction } from "@/actions/users";
 
-function LogoutButton() {
+function LogOutButton() {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
   const handleLogout = async () => {
     setLoading(true);
-    try {
-      // Simulate an API call to log out the user
-      await new Promise((resolve) => setTimeout(resolve, 2000));
-      // Redirect to the login page or perform any other action after logout
-      toast.success("Logout successful!");
+    const { errorMessage } = await logOutAction();
+
+    if (!errorMessage) {
+      toast.success("Logged out successfully!", {
+        description: "You are now logged out.",
+      });
       router.push("/");
-    } catch (error) {
-      console.error("Logout failed:", error);
-      toast.error("Logout failed. Please try again.");
-    } finally {
-      setLoading(false);
+    } else {
+      toast.error("Error", {
+        description: errorMessage,
+      });
     }
+
+    setLoading(false);
   };
 
   return (
@@ -43,4 +46,4 @@ function LogoutButton() {
   );
 }
 
-export default LogoutButton;
+export default LogOutButton;
