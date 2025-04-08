@@ -10,7 +10,7 @@ async function Header() {
   const user = await getUser();
 
   return (
-    <header className="bg-popover text-foreground dark:bg-popover/80 dark:text-foreground/80 relative flex h-24 w-full items-center justify-between px-2 shadow-md shadow-sky-600 drop-shadow-xl transition-colors duration-300 sm:px-4">
+    <header className="relative flex h-24 w-full items-center justify-between px-2 shadow-md shadow-sky-600 drop-shadow-xl transition-colors duration-300 sm:px-4">
       <div className="flex w-fit items-center justify-center gap-2">
         <Link href="/" className="h-16 w-16 overflow-hidden rounded-full">
           <Image

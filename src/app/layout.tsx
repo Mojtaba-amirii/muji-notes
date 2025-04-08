@@ -1,8 +1,10 @@
 import "@/styles/globals.css";
 import type { Metadata } from "next";
-import { Toaster } from "@/components/ui/sonner";
-import { ThemeProvider } from "@/providers/theme-provider";
 import Header from "@/components/header";
+import { Toaster } from "@/components/ui/sonner";
+import { AppSidebar } from "@/components/app-sidebar";
+import { SidebarProvider } from "@/components/ui/sidebar";
+import { ThemeProvider } from "@/providers/theme-provider";
 
 export const metadata: Metadata = {
   title: "Muji Notes App",
@@ -16,18 +18,26 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className="bg-background text-foreground flex min-h-screen flex-col font-sans antialiased">
+      <body>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
           enableSystem
           disableTransitionOnChange
         >
-          <Header />
-          <main className="container mx-auto flex flex-1 flex-col">
-            {children}
-          </main>
-          <Toaster richColors closeButton />
+          <SidebarProvider>
+            <AppSidebar />
+
+            <div className="flex min-h-screen w-full flex-col">
+              <Header />
+
+              <main className="flex flex-1 flex-col px-4 pt-10 xl:px-8">
+                {children}
+              </main>
+            </div>
+          </SidebarProvider>
+
+          <Toaster />
         </ThemeProvider>
       </body>
     </html>
