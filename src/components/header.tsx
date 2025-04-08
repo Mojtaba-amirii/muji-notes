@@ -5,6 +5,7 @@ import { Button } from "./ui/button";
 import ModeToggle from "./theme-toggle";
 import { getUser } from "@/auth/server";
 import LogOutButton from "./logout-btn";
+import { SidebarTrigger } from "./ui/sidebar";
 
 async function Header() {
   const user = await getUser();
@@ -12,7 +13,9 @@ async function Header() {
   return (
     <header className="relative flex h-24 w-full items-center justify-between px-2 shadow-md shadow-sky-600 drop-shadow-xl transition-colors duration-300 sm:px-4">
       <div className="flex w-fit items-center justify-center gap-2">
-        <Link href="/" className="h-16 w-16 overflow-hidden rounded-full">
+        <SidebarTrigger className="absolute top-1 left-1 cursor-pointer p-2" />
+
+        <Link href="/" className="ml-6 h-16 w-16 overflow-hidden rounded-full">
           <Image
             src="/imgs/notes.png"
             alt="logo"

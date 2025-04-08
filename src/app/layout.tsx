@@ -5,6 +5,7 @@ import { Toaster } from "@/components/ui/sonner";
 import AppSidebar from "@/components/app-sidebar";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { ThemeProvider } from "@/providers/theme-provider";
+import NoteProvider from "@/providers/note-provider";
 
 export const metadata: Metadata = {
   title: "Muji Notes App",
@@ -25,19 +26,21 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <SidebarProvider>
-            <AppSidebar />
+          <NoteProvider>
+            <SidebarProvider>
+              <AppSidebar />
 
-            <div className="flex min-h-screen w-full flex-col">
-              <Header />
+              <div className="flex min-h-screen w-full flex-col">
+                <Header />
 
-              <main className="flex flex-1 flex-col px-4 pt-10 xl:px-8">
-                {children}
-              </main>
-            </div>
-          </SidebarProvider>
+                <main className="flex flex-1 flex-col px-4 pt-10 xl:px-8">
+                  {children}
+                </main>
+              </div>
+            </SidebarProvider>
 
-          <Toaster />
+            <Toaster richColors closeButton />
+          </NoteProvider>
         </ThemeProvider>
       </body>
     </html>

@@ -21,7 +21,7 @@ export default async function Home({ searchParams }: HomeProps) {
 
   return (
     <section className="flex h-full flex-col items-center gap-4">
-      <div className="w-full max-w-4xl justify-end gap-2">
+      <div className="flex w-full max-w-4xl justify-end gap-2">
         <AskAiButton user={user} />
         <NewNoteButton user={user} />
       </div>
