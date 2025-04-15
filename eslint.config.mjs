@@ -15,6 +15,7 @@ const eslintConfig = [
     rules: {
       "react/no-unescaped-entities": "off",
     },
+    ignorePatterns: ["src/db/client"],
   },
 ];
 
