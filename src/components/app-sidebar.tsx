@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Note } from "@prisma/client";
+import { Note } from "@/db/client";
 
 import { prisma } from "@/db/prisma";
 import { getUser } from "@/auth/server";

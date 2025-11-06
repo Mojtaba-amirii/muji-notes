@@ -2,7 +2,7 @@
 
 import Fuse from "fuse.js";
 import { SearchIcon } from "lucide-react";
-import { type Note } from "@prisma/client";
+import { type Note } from "@/db/client";
 import { useEffect, useMemo, useState } from "react";
 
 import { Input } from "./ui/input";

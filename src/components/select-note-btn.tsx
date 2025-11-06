@@ -1,8 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { type Note } from "@prisma/client";
-import { useEffect, useState } from "react";
+import { type Note } from "@/db/client";
 import { useSearchParams } from "next/navigation";
 
 import useNote from "@/hooks/useNote";
@@ -15,34 +14,21 @@ type SelectNoteButtonProps = {
 function SelectNoteButton({ note }: SelectNoteButtonProps) {
   const noteId = useSearchParams().get("noteId") || "";
   const { noteText: selectedNoteText } = useNote();
-  const [localNoteText, setLocalNoteText] = useState<string>(note.text);
-  const [shouldBeGlobalNoteText, setShouldBeGlobalNoteText] =
-    useState<boolean>(false);
 
-  useEffect(() => {
-    if (noteId === note.id) {
-      setShouldBeGlobalNoteText(true);
-    } else {
-      setShouldBeGlobalNoteText(false);
-    }
-  }, [noteId, note.id]);
-
-  useEffect(() => {
-    if (shouldBeGlobalNoteText) {
-      setLocalNoteText(selectedNoteText);
-    }
-  }, [selectedNoteText, shouldBeGlobalNoteText]);
-
+  // ✅ Good: Calculate derived state during rendering instead of using Effects
+  const isSelectedNote = noteId === note.id;
   const blankNote = "Empty note.";
-  let noteText = localNoteText || blankNote;
-  if (shouldBeGlobalNoteText) {
-    noteText = selectedNoteText || blankNote;
-  }
+
+  // When this note is selected, use the global note text (which may be being edited)
+  // Otherwise, use the note's original text
+  const noteText = isSelectedNote
+    ? selectedNoteText || blankNote
+    : note.text || blankNote;
 
   return (
     <SidebarMenuButton
       asChild
-      className={`items-start gap-0 pr-12 ${note.id === noteId && "bg-sidebar-accent/50"}`}
+      className={`items-start gap-0 pr-12 ${isSelectedNote && "bg-sidebar-accent/50"}`}
     >
       <Link href={`/?noteId=${note.id}`} className="flex h-fit flex-col">
         <p className="w-full truncate">{noteText}</p>
