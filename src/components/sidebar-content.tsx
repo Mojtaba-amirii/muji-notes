@@ -2,10 +2,10 @@
 
 import Fuse from "fuse.js";
 import { SearchIcon } from "lucide-react";
-import { type Note } from "@/db/client";
 import { useEffect, useMemo, useState } from "react";
 
 import { Input } from "./ui/input";
+import { type Note } from "@/db/client";
 import {
   SidebarGroupContent as SidebarGroupContentShadCN,
   SidebarMenu,

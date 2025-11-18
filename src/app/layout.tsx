@@ -3,9 +3,9 @@ import type { Metadata } from "next";
 import Header from "@/components/header";
 import { Toaster } from "@/components/ui/sonner";
 import AppSidebar from "@/components/app-sidebar";
+import NoteProvider from "@/providers/note-provider";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { ThemeProvider } from "@/providers/theme-provider";
-import NoteProvider from "@/providers/note-provider";
 
 export const metadata: Metadata = {
   title: "Muji Notes App",

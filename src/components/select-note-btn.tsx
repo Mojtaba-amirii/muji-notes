@@ -1,10 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { type Note } from "@/db/client";
 import { useSearchParams } from "next/navigation";
 
 import useNote from "@/hooks/useNote";
+import { type Note } from "@/db/client";
 import { SidebarMenuButton } from "./ui/sidebar";
 
 type SelectNoteButtonProps = {
