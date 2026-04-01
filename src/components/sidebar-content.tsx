@@ -5,7 +5,7 @@ import { SearchIcon } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 
 import { Input } from "./ui/input";
-import { type Note } from "@/db/client";
+import { type Note } from "@prisma/client";
 import {
   SidebarGroupContent as SidebarGroupContentShadCN,
   SidebarMenu,

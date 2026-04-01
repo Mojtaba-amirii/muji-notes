@@ -1,7 +1,12 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  serverExternalPackages: ["@supabase/supabase-js"],
+  serverExternalPackages: [
+    "@supabase/supabase-js",
+    "@prisma/client",
+    "prisma",
+    "./src/db/client",
+  ],
   // Turbopack configuration (replaces webpack config)
   turbopack: {
     resolveAlias: {

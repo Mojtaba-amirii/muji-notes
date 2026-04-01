@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 
 import useNote from "@/hooks/useNote";
-import { type Note } from "@/db/client";
+import { type Note } from "@prisma/client";
 import { SidebarMenuButton } from "./ui/sidebar";
 
 type SelectNoteButtonProps = {
