@@ -2,7 +2,7 @@
 
 import Fuse from "fuse.js";
 import { SearchIcon } from "lucide-react";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 
 import { Input } from "./ui/input";
 import { type Note } from "@prisma/client";
@@ -20,11 +20,11 @@ interface SidebarGroupContentProps {
 
 function SidebarGroupContent({ notes }: SidebarGroupContentProps) {
   const [searchText, setSearchText] = useState<string>("");
-  const [localNotes, setLocalNotes] = useState<Note[]>(notes);
+  const [deletedNoteIds, setDeletedNoteIds] = useState<Set<string>>(new Set());
 
-  useEffect(() => {
-    setLocalNotes(notes);
-  }, [notes]);
+  const localNotes = useMemo(() => {
+    return notes.filter((n) => !deletedNoteIds.has(n.id));
+  }, [notes, deletedNoteIds]);
 
   const fuse = useMemo(() => {
     return new Fuse(localNotes, {
@@ -38,9 +38,7 @@ function SidebarGroupContent({ notes }: SidebarGroupContentProps) {
     : localNotes;
 
   const deleteNoteLocally = (noteId: string) => {
-    setLocalNotes((prevNotes) =>
-      prevNotes.filter((note) => note.id !== noteId),
-    );
+    setDeletedNoteIds((prev) => new Set(prev).add(noteId));
   };
 
   return (
